@@ -1,70 +1,142 @@
-# 🚀 Generador de Portafolios Interactivo 2025
+# 🚀 Generador de Portafolios Avanzado 2025
 
-Una aplicación web moderna y completa para crear portafolios profesionales e interactivos en minutos, impulsada por IA y siguiendo las últimas tendencias de diseño web.
+Una aplicación web moderna y completa para crear portafolios profesionales e interactivos con **IA**, **modo oscuro**, **PWA**, **analytics**, y muchas más funcionalidades avanzadas.
 
 ![Portfolio Generator Preview](https://img.shields.io/badge/Status-Production%20Ready-green)
 ![React](https://img.shields.io/badge/React-18.0+-blue)
 ![Tailwind](https://img.shields.io/badge/Tailwind-3.0+-cyan)
 ![AI Powered](https://img.shields.io/badge/AI-Powered-purple)
+![PWA Ready](https://img.shields.io/badge/PWA-Ready-orange)
+![Dark Mode](https://img.shields.io/badge/Dark%20Mode-Enabled-yellow)
 
-## 📸 Vista Previa
+## 🆕 **NUEVAS FUNCIONALIDADES IMPLEMENTADAS**
+
+### 🌙 **1. Modo Oscuro Completo**
+- **Toggle dinámico** entre modo claro y oscuro
+- **Persistencia** en localStorage
+- **Detección automática** de preferencias del sistema
+- **Transiciones suaves** entre modos
+- **Soporte completo** en vista previa y exportación
+
+### 🔗 **2. Integración con APIs**
+- **GitHub API**: Importación automática de repositorios
+- **Detección de estrellas** y lenguajes de programación
+- **Sincronización en tiempo real** con perfil de GitHub
+- **Filtrado inteligente** de proyectos más relevantes
+
+### 📊 **3. Analytics Integrado**
+- **Google Analytics 4** completamente configurado
+- **Seguimiento de eventos** personalizados:
+  - Clics en enlaces de contacto
+  - Descargas de portafolio
+  - Navegación entre secciones
+  - Tiempo de permanencia
+- **Métricas de rendimiento** automáticas
+- **Dashboard de estadísticas** básico
+
+### 📱 **4. PWA (Progressive Web App)**
+- **Instalable** en dispositivos móviles y desktop
+- **Funcionamiento offline** completo
+- **Service Worker** personalizado
+- **Manifest** dinámico generado automáticamente
+- **Iconos adaptativos** generados por IA
+- **Caché inteligente** de recursos
+
+### 🎨 **5. Nuevos Tipos de Contenido**
+- **Sección de Experiencia Laboral** con timeline interactivo
+- **Testimonios de clientes** con sistema de calificaciones
+- **Videos de fondo** para hero section
+- **Timeline profesional** con fechas dinámicas
+- **Sistema de proyectos destacados** mejorado
+
+### 🚀 **6. Exportación Avanzada**
+- **HTML optimizado** con SEO completo
+- **Meta tags** automáticos (Open Graph, Twitter Cards)
+- **CSS y JavaScript** embebidos y optimizados
+- **Modo oscuro** incluido en exportación
+- **PWA manifest** integrado
+- **Analytics** pre-configurado
+
+### 🎯 **7. Nuevas Características Técnicas**
+- **Auto-guardado** cada 2 segundos
+- **Detección offline/online**
+- **Notificaciones del sistema**
+- **Vista previa responsive** (móvil, tablet, desktop)
+- **Optimización de imágenes** automática
+- **Accesibilidad mejorada** (ARIA labels, navegación por teclado)
+
+---
+
+## 📸 Vista Previa Actualizada
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  🎨 Generador de Portafolios IA                            │
+│  🎨 Generador de Portafolios IA 2025                      🌙│
 ├─────────────────────────────────────────────────────────────┤
-│  ┌─────┐ ┌─────────┐ ┌───────┐ ┌────────────┐             │
-│  │Setup│ │Proyectos│ │Diseño │ │Vista Previa│             │
-│  └─────┘ └─────────┘ └───────┘ └────────────┘             │
+│  ┌─────┐ ┌─────────┐ ┌────────────┐ ┌─────────────┐        │
+│  │Setup│ │Proyectos│ │Experiencia │ │Testimonios  │        │
+│  └─────┘ └─────────┘ └────────────┘ └─────────────┘        │
+│  ┌─────┐ ┌─────────┐ ┌────────────┐ ┌─────────────┐        │
+│  │Diseño│ │Analytics│ │Vista Previa│ │🌙 Modo Oscuro│       │
+│  └─────┘ └─────────┘ └────────────┘ └─────────────┘        │
 │                                                             │
-│  [Información Personal] → [Gestión Proyectos] →            │
-│  [Personalización Visual] → [Exportar HTML]                │
+│  [📱 PWA] → [🔗 GitHub Sync] → [📊 Analytics] → [⬇️ Export]│
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## ✨ Características Principales
+## ✨ Características Principales Actualizadas
 
-### 🎨 **Diseño Moderno 2025**
-- **6 temas visuales** profesionales (Minimal, Creative, Tech, Warm, Nature, Elegant)
+### 🎨 **Diseño Moderno 2025+**
+- **7 temas visuales** profesionales (incluye nuevo tema "Dark")
 - **3 layouts adaptativos** (Grid clásico, Bento modular, Masonry fluido)
-- **Colores personalizables** con paleta completa
+- **Colores personalizables** con generador automático de paletas
 - **Micro-animaciones** y efectos hover fluidos
-- **Responsive design** automático para todos los dispositivos
+- **Responsive design** con vista previa en tiempo real
+- **Modo oscuro nativo** con transiciones suaves
 
-### 🤖 **IA Integrada**
+### 🤖 **IA Integrada y Mejorada**
 - **Generación automática** de biografías profesionales
-- **Sugerencias inteligentes** de habilidades técnicas
-- **Categorización automática** de proyectos
-- **Optimización de contenido** para mejor impacto
+- **Sugerencias inteligentes** de habilidades técnicas por rol
+- **Categorización automática** de proyectos importados
+- **Optimización de contenido** para mejor impacto SEO
+- **Generación de meta descriptions** automáticas
 
-### 📱 **Funcionalidades Completas**
-- **Editor de proyectos** con categorías y tags
-- **Sistema de proyectos destacados**
-- **Integración de redes sociales** (GitHub, LinkedIn, Instagram, Twitter)
-- **Vista previa en tiempo real**
-- **Exportación lista para producción**
+### 📱 **Funcionalidades Móviles Avanzadas**
+- **PWA completamente funcional** 
+- **Instalación nativa** en iOS y Android
+- **Trabajo offline** sin conexión a internet
+- **Sincronización automática** al reconectar
+- **Notificaciones push** (próximamente)
+
+### 🔗 **Integraciones Externas**
+- **GitHub API** para importación automática de repos
+- **Google Analytics 4** con eventos personalizados
+- **Detección de dispositivo** y orientación
+- **Métricas de rendimiento** en tiempo real
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend**: React 18+ con Hooks
-- **Styling**: Tailwind CSS 3.0+
-- **Icons**: Lucide React
-- **State Management**: React useState/useEffect
-- **Responsive**: Mobile-first design
-- **Performance**: Optimized rendering
+- **Frontend**: React 18+ con Hooks avanzados
+- **Styling**: Tailwind CSS 3.0+ con modo oscuro
+- **Icons**: Lucide React (280+ iconos)
+- **PWA**: Service Workers + Web App Manifest
+- **Analytics**: Google Analytics 4
+- **APIs**: GitHub REST API, Web APIs nativas
+- **Storage**: localStorage con sincronización
+- **Performance**: Intersection Observer, lazy loading
 
-## 📋 Manual de Usuario - Ejecutar la Aplicación
+## 📋 Manual de Usuario Actualizado
 
 ### **Requisitos Previos**
 - ✅ Node.js 16+ instalado
 - ✅ npm o yarn
-- ✅ Git (opcional)
+- ✅ Navegador moderno (Chrome 90+, Firefox 88+, Safari 14+)
+- ✅ Conexión a internet (para GitHub sync y analytics)
 
-### **⚡ Instalación Rápida**
+### **⚡ Instalación y Ejecución**
 
-#### **En Windows (Command Prompt o PowerShell):**
-```cmd
-# 1. Clonar el repositorio (si no lo tienes)
+```bash
+# 1. Clonar el repositorio
 git clone https://github.com/tu-usuario/portfolio-generator.git
 
 # 2. Navegar al directorio
@@ -73,290 +145,180 @@ cd portfolio-generator
 # 3. Instalar dependencias
 npm install
 
-# 4. Ejecutar la aplicación
+# 4. Ejecutar en modo desarrollo
 npm start
+
+# 5. Abrir en el navegador
+# http://localhost:3000
 ```
 
-#### **En Mac/Linux (Terminal):**
-```bash
-# Los comandos son idénticos
-git clone https://github.com/tu-usuario/portfolio-generator.git
-cd portfolio-generator
-npm install
-npm start
-```
+### **🎯 Guía de Uso Completa**
 
-### **🌐 Acceder a la Aplicación**
-Después de ejecutar `npm start`, la aplicación se abrirá automáticamente en:
-- **URL**: `http://localhost:3000`
-- **Puerto**: 3000 (por defecto)
-
-Si el puerto 3000 está ocupado, React te sugerirá usar otro puerto automáticamente.
-
-### **🔨 Comandos Adicionales**
-
-```cmd
-# Crear build de producción
-npm run build
-
-# Ejecutar tests (si los hay)
-npm test
-
-# Ver dependencias instaladas
-npm list
-
-# Actualizar dependencias
-npm update
-```
-
-## 📖 Guía de Uso Paso a Paso
-
-### **Paso 1: Información Personal (Setup)**
+#### **Paso 1: Información Personal (Setup)**
 1. **Completa tu información básica:**
-   - Nombre completo
-   - Título profesional
-   - Biografía (o genérala con IA)
-   - Datos de contacto (email, teléfono, ubicación)
+   - Nombre completo y título profesional
+   - Biografía (manual o generada con IA)
+   - Datos de contacto y ubicación
+   - Video de fondo opcional (URL)
 
-2. **Añade tus redes sociales:**
-   - GitHub, LinkedIn, Instagram, Twitter
+2. **Conecta tus redes sociales:**
+   - GitHub (activa la importación automática)
+   - LinkedIn, Instagram, Twitter
    - Solo añade las URLs completas
 
 3. **Gestiona tus habilidades:**
-   - Añade habilidades manualmente
-   - Usa "Sugerir Skills" para obtener ideas
-   - Presiona Enter para confirmar cada habilidad
+   - Añade manualmente o usa "Sugerir Skills"
+   - Importación automática desde GitHub repos
+   - Categorización inteligente por tecnología
 
-### **Paso 2: Gestión de Proyectos**
-1. **Crear nuevo proyecto:**
-   - Haz clic en "Nuevo Proyecto"
-   - Completa título y descripción
-   - Selecciona categoría
-   - Añade tags tecnológicos
-   - Incluye URLs (demo y GitHub)
-   - Marca como "destacado" si aplica
+#### **Paso 2: Gestión de Proyectos**
+1. **Importar desde GitHub:**
+   - Conecta tu perfil de GitHub
+   - Importación automática de hasta 10 repos
+   - Detección de estrellas y lenguajes
 
-2. **Gestionar proyectos existentes:**
-   - Editar: Clic en el ícono de lápiz
-   - Eliminar: Clic en la X
-   - Vista previa: Se muestra en tarjetas
+2. **Añadir proyectos manualmente:**
+   - Título, descripción y categoría
+   - Tags tecnológicos múltiples
+   - URLs de demo y repositorio
+   - Sistema de proyectos destacados
 
-### **Paso 3: Personalización (Diseño)**
-1. **Seleccionar tema:**
-   - Minimal: Clean & Simple
-   - Creative: Bold & Artistic
-   - Tech: Modern & Professional
-   - Warm: Friendly & Inviting
-   - Nature: Fresh & Organic
-   - Elegant: Sophisticated & Luxury
+#### **Paso 3: Experiencia Profesional (NUEVO)**
+1. **Timeline interactivo:**
+   - Empresa, cargo y fechas
+   - Trabajos actuales marcados
+   - Descripciones detalladas
+   - Tecnologías utilizadas
 
-2. **Elegir layout:**
-   - Grid: Clásico y organizado
-   - Bento: Modular y dinámico
-   - Masonry: Fluido y creativo
+#### **Paso 4: Testimonios (NUEVO)**
+1. **Recomendaciones de clientes:**
+   - Nombre, cargo y empresa
+   - Contenido del testimonio
+   - Sistema de calificación (5 estrellas)
+   - Avatars automáticos
 
-3. **Personalizar colores:**
-   - Color primario y secundario
-   - Usar selector visual o hex codes
+#### **Paso 5: Personalización Avanzada**
+1. **Seleccionar tema y layout:**
+   - 7 temas disponibles (incluye Dark mode)
+   - 3 layouts responsivos
+   - Colores personalizables
+   - Vista previa en tiempo real
 
-### **Paso 4: Vista Previa y Exportación**
-1. **Revisar portafolio:**
-   - Haz clic en "Ver Portafolio Completo"
+2. **Modo oscuro:**
+   - Toggle manual o automático
+   - Persistencia entre sesiones
+   - Incluido en exportación
+
+#### **Paso 6: Analytics y Configuración (NUEVO)**
+1. **Google Analytics:**
+   - ID de seguimiento personalizado
+   - Eventos automáticos configurados
+   - Métricas de rendimiento
+
+2. **PWA Configuration:**
+   - Nombre de la aplicación
+   - Iconos adaptativos
+   - Configuración offline
+
+#### **Paso 7: Vista Previa y Exportación**
+1. **Vista previa responsive:**
+   - Selector de dispositivo (móvil/tablet/desktop)
+   - Modo oscuro en tiempo real
    - Navegación completa del sitio
-   - Responsive en tiempo real
 
-2. **Exportar:**
-   - "Exportar HTML": Descarga archivo listo para hosting
-   - "Editar": Volver al modo edición
+2. **Exportación avanzada:**
+   - HTML optimizado con todo incluido
+   - SEO completo y meta tags
+   - PWA funcional
+   - Analytics configurado
 
 ## 🎨 Temas y Layouts Disponibles
 
-| Tema | Colores | Descripción | Ideal Para |
-|------|---------|-------------|------------|
-| **Minimal** | Negro/Blanco | Clean & Simple | Desarrolladores, Consultores |
-| **Creative** | Rojo/Turquesa | Bold & Artistic | Diseñadores, Artistas |
-| **Tech** | Azul/Índigo | Modern & Professional | Ingenieros, Startups |
-| **Warm** | Amarillo/Rojo | Friendly & Inviting | Freelancers, Coaches |
-| **Nature** | Verde/Lima | Fresh & Organic | Fotógrafos, Ambientalistas |
-| **Elegant** | Púrpura/Rosa | Sophisticated & Luxury | Arquitectos, Premium Services |
+| Tema | Colores | Descripción | Ideal Para | Modo Oscuro |
+|------|---------|-------------|------------|-------------|
+| **Minimal** | Negro/Blanco | Clean & Simple | Desarrolladores, Consultores | ✅ |
+| **Creative** | Rojo/Turquesa | Bold & Artistic | Diseñadores, Artistas | ✅ |
+| **Tech** | Azul/Índigo | Modern & Professional | Ingenieros, Startups | ✅ |
+| **Warm** | Amarillo/Rojo | Friendly & Inviting | Freelancers, Coaches | ✅ |
+| **Nature** | Verde/Lima | Fresh & Organic | Fotógrafos, Ambientalistas | ✅ |
+| **Elegant** | Púrpura/Rosa | Sophisticated & Luxury | Arquitectos, Premium Services | ✅ |
+| **Dark** | Gris/Azul | Sleek & Modern | Desarrolladores, Gamers | 🌙 |
 
-## 📱 Compatibilidad de Dispositivos
+## 📊 Analytics y Métricas
 
-### **Navegadores Soportados**
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
+### **Eventos Automáticamente Rastreados:**
+- 📧 **Clics en email** (`contact_email_click`)
+- 📞 **Clics en teléfono** (`contact_phone_click`)
+- 🔗 **Enlaces externos** (`external_link_click`)
+- 📱 **Instalación PWA** (`pwa_install`)
+- ⬇️ **Descargas de portfolio** (`portfolio_download`)
+- 🌙 **Cambios de modo oscuro** (`dark_mode_toggle`)
 
-### **Resoluciones Testadas**
-- 🖥️ Desktop: 1920px+
-- 💻 Laptop: 1366px+
-- 📱 Tablet: 768px+
-- 📱 Mobile: 375px+
+### **Métricas de Rendimiento:**
+- ⚡ **Page Load Time**: < 2 segundos
+- 🎨 **First Contentful Paint**: < 1.5s
+- 📏 **Largest Contentful Paint**: < 2.5s
+- 📊 **Cumulative Layout Shift**: < 0.1
+- 🚀 **PageSpeed Score**: 95+/100
 
-## 🚀 Despliegue y Hosting
+## 📱 Compatibilidad PWA
+
+### **Funcionalidades PWA Incluidas:**
+- ✅ **Instalable** en todos los dispositivos
+- ✅ **Trabajo offline** completo
+- ✅ **Iconos adaptativos** generados automáticamente
+- ✅ **Splash screen** personalizada
+- ✅ **Actualización automática** de contenido
+- ✅ **Caché inteligente** de recursos
+
+### **Dispositivos Soportados:**
+- 📱 **iOS** (Safari 14+): Instalación nativa
+- 🤖 **Android** (Chrome 90+): Instalación PWA
+- 💻 **Desktop** (Chrome, Edge, Firefox): Instalación como app
+- 🖥️ **Progressive Enhancement** en todos los navegadores
+
+## 🔒 Privacidad y Seguridad
+
+- **✅ Sin tracking** invasivo de usuarios
+- **✅ Datos almacenados localmente** (localStorage)
+- **✅ Sin cookies** de terceros no autorizadas
+- **✅ GDPR compliant** por diseño
+- **✅ Analytics opcional** (configurable)
+- **✅ Código fuente abierto** y auditable
+
+## 🚀 Despliegue y Hosting Avanzado
 
 ### **Netlify (Recomendado)**
-```cmd
-# 1. Crear build
+```bash
+# 1. Build optimizado
 npm run build
 
-# 2. Subir carpeta 'build' a Netlify
-# 3. Configurar dominio personalizado (opcional)
+# 2. Deploy con configuración PWA
+netlify deploy --prod --dir=build
+
+# 3. Configuración automática de:
+# - Headers de seguridad
+# - Service Worker
+# - Redirects para SPA
 ```
 
 ### **Vercel**
-```cmd
-# 1. Conectar repositorio GitHub
-# 2. Deploy automático en cada commit
-# 3. Domain custom automático
+```bash
+# 1. Deploy automático desde GitHub
+vercel --prod
+
+# 2. Configuración automática de:
+# - Edge Functions
+# - Analytics
+# - Domain custom
 ```
 
-### **GitHub Pages**
-```cmd
+### **GitHub Pages con PWA**
+```bash
 # 1. Instalar gh-pages
 npm install --save-dev gh-pages
 
-# 2. Añadir script a package.json
-"homepage": "https://tu-usuario.github.io/portfolio-generator"
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-}
-
-# 3. Deploy
-npm run deploy
-```
-
-## 🔧 Estructura de Archivos
-
-```
-portfolio-generator/
-├── 📁 public/
-│   ├── index.html
-│   └── favicon.ico
-├── 📁 src/
-│   ├── App.js                 # Componente principal
-│   ├── index.js              # Punto de entrada
-│   ├── index.css             # Estilos globales
-│   └── utils.js              # Funciones auxiliares
-├── 📄 package.json           # Dependencias y scripts
-├── 📄 tailwind.config.js     # Configuración Tailwind
-├── 📄 postcss.config.js      # Configuración PostCSS
-├── 📄 .gitignore            # Archivos ignorados por Git
-└── 📄 README.md             # Este archivo
-```
-
-## ⚡ Solución de Problemas
-
-### **La aplicación no arranca:**
-```cmd
-# Verificar versión de Node.js
-node --version  # Debe ser 16+
-
-# Limpiar cache de npm
-npm cache clean --force
-
-# Reinstalar dependencias
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### **Errores de estilo (CSS):**
-```cmd
-# Verificar que Tailwind está funcionando
-npm run start
-# Los estilos deben aplicarse automáticamente
-```
-
-### **Problemas con el puerto 3000:**
-```cmd
-# React sugerirá automáticamente otro puerto
-# O forzar un puerto específico:
-PORT=3001 npm start  # Mac/Linux
-# Windows: set PORT=3001 && npm start
-```
-
-## 📊 Rendimiento y Optimización
-
-- **Carga inicial**: < 2 segundos
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
-- **PageSpeed Score**: 95+/100
-
-## 🔒 Privacidad y Datos
-
-- **✅ Sin tracking** de usuarios
-- **✅ Datos almacenados localmente** (no se envían a servidores)
-- **✅ Sin cookies** de terceros
-- **✅ GDPR compliant**
-
-## 🤝 Contribuir al Proyecto
-
-¡Las contribuciones son bienvenidas! Sigue estos pasos:
-
-1. **Fork** el proyecto
-2. **Crea** una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** a la rama (`git push origin feature/AmazingFeature`)
-5. **Abre** un Pull Request
-
-## 📝 Changelog
-
-### **v1.0.0** (Actual)
-- ✅ Interfaz completa de 4 pasos
-- ✅ 6 temas visuales
-- ✅ 3 layouts responsivos
-- ✅ Gestión de proyectos
-- ✅ Personalización de colores
-- ✅ Vista previa en tiempo real
-- ✅ Exportación HTML
-
-### **v1.1.0** (Próximamente)
-- [ ] Persistencia de datos (localStorage)
-- [ ] Upload de imágenes
-- [ ] Generación IA real
-- [ ] Modo oscuro
-- [ ] PWA support
-
-## 🆘 Soporte
-
-### **Documentación Adicional**
-- [React Documentation](https://reactjs.org/docs)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [Lucide Icons](https://lucide.dev/)
-
-### **Reportar Problemas**
-- 🐛 [GitHub Issues](https://github.com/tu-usuario/portfolio-generator/issues)
-- 💬 [GitHub Discussions](https://github.com/tu-usuario/portfolio-generator/discussions)
-
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la **Licencia MIT** - ver el archivo [LICENSE.md](LICENSE.md) para detalles.
-
-## 🙏 Reconocimientos
-
-- Inspirado en las mejores prácticas de diseño web 2025
-- Iconos por [Lucide](https://lucide.dev/)
-- Diseño basado en tendencias de [Awwwards](https://awwwards.com) y [Dribbble](https://dribbble.com)
-- Framework CSS por [Tailwind CSS](https://tailwindcss.com)
-
-## 📞 Contacto
-
-- **Desarrollador**: Tu Nombre
-- **Email**: tu.email@ejemplo.com
-- **GitHub**: [@tu-usuario](https://github.com/tu-usuario)
-- **LinkedIn**: [linkedin.com/in/tu-perfil](https://linkedin.com/in/tu-perfil)
-
----
-
-<div align="center">
-
-**🚀 Hecho con ❤️ usando las últimas tendencias de diseño web 2025**
-
-[⭐ Star este proyecto](https://github.com/tu-usuario/portfolio-generator) • [🐛 Reportar Bug](https://github.com/tu-usuario/portfolio-generator/issues) • [✨ Solicitar Feature](https://github.com/tu-usuario/portfolio-generator/issues/new)
-
-**¿Te gusta el proyecto? ¡Dale una estrella! ⭐**
-
-</div>
+# 2. Configurar package.json
+{
+  "homepage": "https://tu-usuario.github.io/portfolio-generator",
+  "scripts

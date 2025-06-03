@@ -1,321 +1,458 @@
-// 1. Función para exportar HTML completo
-const exportToHTML = (portfolioData) => {
-  const htmlTemplate = `
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}</title>
-    <meta name="description" content="${portfolioData.personalInfo.bio}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
-</head>
-<body>
-    <!-- Tu portafolio generado aquí -->
-    ${generatePortfolioHTML(portfolioData)}
-</body>
-</html>`;
+github: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
+    linkedin; '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    instagram; '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.618 5.367 11.986 11.988 11.986s11.987-5.368 11.987-11.986C24.014 5.367 18.635.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.295C3.853 14.285 3.136 12.018 3.136 9.724c0-2.295.717-4.562 2.017-6.27C6.028 2.649 7.179 2.16 8.476 2.16c1.297 0 2.448.489 3.323 1.294 1.301 1.708 2.017 3.975 2.017 6.27 0 2.294-.716 4.561-2.017 6.269-.875.805-2.026 1.295-3.323 1.295zm7.138 0c-1.297 0-2.448-.49-3.323-1.295-1.301-1.708-2.017-3.975-2.017-6.269 0-2.295.716-4.562 2.017-6.27.875-.805 2.026-1.294 3.323-1.294 1.297 0 2.448.489 3.323 1.294 1.301 1.708 2.017 3.975 2.017 6.27 0 2.294-.716 4.561-2.017 6.269-.875.805-2.026 1.295-3.323 1.295z"/></svg>',
+    twitter; '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>'
+  };
 
-  const blob = new Blob([htmlTemplate], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${portfolioData.personalInfo.name || 'portfolio'}.html`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const colorMap = {
+    github: isDarkTheme ? 'text-gray-300' : 'text-gray-700',
+    linkedin: 'text-blue-600',
+    instagram: 'text-pink-600',
+    twitter: 'text-blue-400'
+  };
+
+  const links = Object.entries(socialLinks)
+    .filter(([key, value]) => value)
+    .map(([key, value]) => {
+      return `<a href="${value}" target="_blank" rel="noopener noreferrer" class="p-3 ${isDarkTheme ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'} rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110">
+        <span class="${colorMap[key]}">${socialIcons[key]}</span>
+      </a>`;
+    }).join('');
+
+  return `<div class="flex justify-center gap-4 mb-8">${links}</div>`;
 };
 
-// 2. Persistencia local (localStorage)
-const saveToLocalStorage = (data) => {
-  localStorage.setItem('portfolioData', JSON.stringify(data));
-};
-
-const loadFromLocalStorage = () => {
-  const saved = localStorage.getItem('portfolioData');
-  return saved ? JSON.parse(saved) : null;
-};
-
-// 3. Upload de imágenes
-const handleImageUpload = (file, callback) => {
-  if (file && file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      callback(e.target.result);
-    };
-    reader.readAsDataURL(file);
+// 12. Contact Info Generator
+export const generateContactInfo = (personalInfo, isDarkTheme) => {
+  const contactItems = [];
+  
+  if (personalInfo.location) {
+    contactItems.push(`
+      <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          ${personalInfo.location}
+      </div>
+    `);
   }
+
+  if (personalInfo.email) {
+    contactItems.push(`
+      <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          ${personalInfo.email}
+      </div>
+    `);
+  }
+
+  return `<div class="flex flex-wrap justify-center gap-4 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}">${contactItems.join('')}</div>`;
 };
 
-// 4. Generación de biografía con IA real (usando una API)
-const generateRealAIBio = async (title, name) => {
+// 13. Skills Section Generator
+export const generateSkillsSection = (portfolioData, isDarkTheme) => {
+  if (portfolioData.skills.length === 0) return '';
+
+  return `
+    <div class="py-20 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-50'}">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center ${isDarkTheme ? 'text-white' : 'text-gray-900'} mb-12">
+                Habilidades & Tecnologías
+            </h2>
+            <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+                ${portfolioData.skills.map(skill => 
+                  `<span class="px-4 py-2 ${isDarkTheme ? 'bg-gray-700 text-gray-200' : 'bg-white text-gray-700'} rounded-full shadow-sm font-medium hover:shadow-md transition-all duration-300 transform hover:scale-105" style="border-left: 4px solid ${portfolioData.theme.primaryColor}">
+                    ${skill}
+                  </span>`
+                ).join('')}
+            </div>
+        </div>
+    </div>
+  `;
+};
+
+// 14. Experience Section Generator
+export const generateExperienceSection = (portfolioData, isDarkTheme) => {
+  if (portfolioData.experience.length === 0) return '';
+
+  return `
+    <div class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center ${isDarkTheme ? 'text-white' : 'text-gray-900'} mb-16">
+                Experiencia Profesional
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                ${portfolioData.experience.map((exp, index) => `
+                <div class="relative pl-8 pb-12 ${index === portfolioData.experience.length - 1 ? '' : 'border-l border-gray-200 dark:border-gray-700'}">
+                    <div class="absolute left-0 top-0 w-4 h-4 bg-indigo-600 rounded-full transform -translate-x-2"></div>
+                    
+                    <div class="${isDarkTheme ? 'bg-gray-800' : 'bg-white'} rounded-lg p-6 shadow-lg ml-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold ${isDarkTheme ? 'text-white' : 'text-gray-900'}">
+                                ${exp.position}
+                            </h3>
+                            <span class="text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}">
+                                ${exp.startDate} - ${exp.current ? 'Presente' : exp.endDate}
+                            </span>
+                        </div>
+                        <p class="text-indigo-600 dark:text-indigo-400 font-medium mb-3">
+                            ${exp.company}
+                        </p>
+                        ${exp.description ? `
+                        <p class="${isDarkTheme ? 'text-gray-300' : 'text-gray-600'} leading-relaxed">
+                            ${exp.description}
+                        </p>` : ''}
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </div>
+  `;
+};
+
+// 15. Projects Section Generator
+export const generateProjectsSection = (portfolioData, isDarkTheme, isBento) => {
+  return `
+    <div class="py-20 ${isDarkTheme ? 'bg-gray-800' : 'bg-white'}">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center ${isDarkTheme ? 'text-white' : 'text-gray-900'} mb-16">
+                Proyectos Destacados
+            </h2>
+            
+            ${portfolioData.projects.length === 0 ? `
+            <div class="text-center py-12">
+                <div class="w-24 h-24 ${isDarkTheme ? 'bg-gray-700' : 'bg-gray-100'} rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="${isDarkTheme ? 'text-gray-500' : 'text-gray-400'} text-3xl">🎨</span>
+                </div>
+                <p class="text-lg ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}">
+                    Proyectos próximamente
+                </p>
+            </div>
+            ` : `
+            <div class="grid gap-8 ${isBento ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}">
+                ${portfolioData.projects.map((project, index) => `
+                <div class="group ${isDarkTheme ? 'bg-gray-700' : 'bg-white'} rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:scale-105 ${isBento && index % 3 === 0 ? 'md:col-span-2 md:row-span-1' : ''} ${project.featured ? 'ring-2 ring-indigo-500 ring-opacity-50' : ''}">
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-600/20"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}">
+                                <div class="text-4xl mb-2 opacity-50">🎨</div>
+                                <p class="text-sm">Vista previa del proyecto</p>
+                            </div>
+                        </div>
+                        ${project.featured ? `
+                        <div class="absolute top-4 right-4">
+                            <div class="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                                ❤️ Destacado
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors ${isDarkTheme ? 'text-white' : 'text-gray-900'}">
+                                ${project.title}
+                            </h3>
+                            <span class="text-xs ${isDarkTheme ? 'bg-gray-600 text-gray-300' : 'bg-gray-100 text-gray-600'} px-2 py-1 rounded-full">
+                                ${project.category}
+                            </span>
+                        </div>
+                        
+                        <p class="${isDarkTheme ? 'text-gray-300' : 'text-gray-600'} mb-4 leading-relaxed">
+                            ${project.description}
+                        </p>
+                        
+                        ${project.tags.length > 0 ? `
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${project.tags.slice(0, 3).map(tag => 
+                              `<span class="text-xs ${isDarkTheme ? 'bg-indigo-900 text-indigo-300' : 'bg-indigo-50 text-indigo-700'} px-2 py-1 rounded-full font-medium">
+                                ${tag}
+                              </span>`
+                            ).join('')}
+                            ${project.tags.length > 3 ? `
+                            <span class="text-xs ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'} px-2 py-1">
+                                +${project.tags.length - 3} más
+                            </span>
+                            ` : ''}
+                        </div>
+                        ` : ''}
+                        
+                        <div class="flex gap-3">
+                            ${project.liveUrl ? `
+                            <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" 
+                               class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 font-medium text-center flex items-center justify-center gap-2 text-sm">
+                                🔗 Ver Demo
+                            </a>
+                            ` : ''}
+                            ${project.githubUrl ? `
+                            <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer"
+                               class="px-4 py-2 border ${isDarkTheme ? 'border-gray-600 text-gray-300 hover:bg-gray-600' : 'border-gray-300 text-gray-700 hover:bg-gray-50'} rounded-lg transition-all duration-300 flex items-center justify-center">
+                                GitHub
+                            </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+            `}
+        </div>
+    </div>
+  `;
+};
+
+// 16. Testimonials Section Generator
+export const generateTestimonialsSection = (portfolioData, isDarkTheme) => {
+  if (portfolioData.testimonials.length === 0) return '';
+
+  return `
+    <div class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center ${isDarkTheme ? 'text-white' : 'text-gray-900'} mb-16">
+                Lo que dicen mis clientes
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                ${portfolioData.testimonials.map((testimonial, index) => `
+                <div class="${isDarkTheme ? 'bg-gray-800' : 'bg-white'} rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="flex gap-1 mb-4">
+                        ${[...Array(5)].map((_, i) => `
+                        <span class="text-lg ${i < (testimonial.rating || 5) ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}">
+                            ⭐
+                        </span>
+                        `).join('')}
+                    </div>
+                    
+                    <p class="${isDarkTheme ? 'text-gray-300' : 'text-gray-600'} mb-4 italic">
+                        "${testimonial.content}"
+                    </p>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">
+                                ${testimonial.name?.charAt(0) || 'T'}
+                            </span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold ${isDarkTheme ? 'text-white' : 'text-gray-900'}">
+                                ${testimonial.name}
+                            </h4>
+                            <p class="text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}">
+                                ${testimonial.position} ${testimonial.company ? `at ${testimonial.company}` : ''}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </div>
+  `;
+};
+
+// 17. Contact Section Generator
+export const generateContactSection = (portfolioData) => {
+  return `
+    <div class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">¿Listo para trabajar juntos?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                ${portfolioData.personalInfo.email ? `
+                <a href="mailto:${portfolioData.personalInfo.email}" 
+                   class="bg-white text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
+                    📧 Enviar Email
+                </a>
+                ` : ''}
+                ${portfolioData.personalInfo.phone ? `
+                <a href="tel:${portfolioData.personalInfo.phone}"
+                   class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-colors flex items-center gap-2">
+                    📞 Llamar
+                </a>
+                ` : ''}
+            </div>
+        </div>
+    </div>
+  `;
+};
+
+// 18. Enhanced localStorage functions
+export const saveToLocalStorage = (data) => {
   try {
-    // Ejemplo con OpenAI API (necesitarías una clave API)
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [{
-          role: 'user',
-          content: `Genera una biografía profesional para ${name}, que es ${title}. Máximo 200 palabras, tono profesional pero cercano.`
-        }],
-        max_tokens: 150
-      })
-    });
-    
-    const data = await response.json();
-    return data.choices[0].message.content;
+    localStorage.setItem('portfolioData', JSON.stringify(data));
+    localStorage.setItem('lastSaved', new Date().toISOString());
+    return true;
   } catch (error) {
-    console.error('Error generando biografía:', error);
-    return `${name} es un/a ${title} apasionado/a por la innovación y la excelencia. Con experiencia en proyectos diversos, se especializa en crear soluciones que combinan funcionalidad y diseño excepcional.`;
+    console.error('Error saving to localStorage:', error);
+    return false;
   }
 };
 
-// 5. Validación de formularios
-const validatePortfolioData = (data) => {
+export const loadFromLocalStorage = () => {
+  try {
+    const saved = localStorage.getItem('portfolioData');
+    return saved ? JSON.parse(saved) : null;
+  } catch (error) {
+    console.error('Error loading from localStorage:', error);
+    return null;
+  }
+};
+
+// 19. GitHub API Integration
+export const fetchGithubRepos = async (username) => {
+  if (!username) return [];
+  
+  try {
+    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=10`);
+    if (!response.ok) throw new Error('GitHub API request failed');
+    
+    const repos = await response.json();
+    
+    return repos.map(repo => ({
+      id: repo.id,
+      title: repo.name,
+      description: repo.description || 'No description available',
+      category: repo.language || 'Code',
+      tags: repo.topics || [],
+      liveUrl: repo.homepage || '',
+      githubUrl: repo.html_url,
+      featured: repo.stargazers_count > 5,
+      stars: repo.stargazers_count,
+      language: repo.language,
+      updatedAt: repo.updated_at
+    }));
+  } catch (error) {
+    console.error('Error fetching GitHub repos:', error);
+    return [];
+  }
+};
+
+// 20. Image optimization
+export const handleImageUpload = (file, callback, maxWidth = 800, quality = 0.8) => {
+  if (!file || !file.type.startsWith('image/')) {
+    callback(null);
+    return;
+  }
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  
+  img.onload = () => {
+    const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
+    canvas.width = img.width * ratio;
+    canvas.height = img.height * ratio;
+    
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    
+    canvas.toBlob((blob) => {
+      const reader = new FileReader();
+      reader.onload = (e) => callback(e.target.result);
+      reader.readAsDataURL(blob);
+    }, 'image/jpeg', quality);
+  };
+  
+  img.src = URL.createObjectURL(file);
+};
+
+// 21. SEO optimization
+export const generateSEOMeta = (portfolioData) => {
+  return {
+    title: `${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}`,
+    description: portfolioData.personalInfo.bio || `Portfolio profesional de ${portfolioData.personalInfo.name}`,
+    keywords: portfolioData.skills.join(', '),
+    ogImage: portfolioData.personalInfo.avatar || '',
+    canonical: window.location.href,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": portfolioData.personalInfo.name,
+      "jobTitle": portfolioData.personalInfo.title,
+      "description": portfolioData.personalInfo.bio,
+      "url": window.location.href,
+      "sameAs": Object.values(portfolioData.socialLinks).filter(Boolean)
+    }
+  };
+};
+
+// 22. Performance monitoring
+export const trackPerformance = () => {
+  if (typeof window !== 'undefined' && window.performance) {
+    window.addEventListener('load', () => {
+      const perfData = performance.getEntriesByType('navigation')[0];
+      if (perfData) {
+        const metrics = {
+          loadTime: perfData.loadEventEnd - perfData.fetchStart,
+          domContentLoaded: perfData.domContentLoadedEventEnd - perfData.fetchStart,
+          firstPaint: performance.getEntriesByType('paint')[0]?.startTime || 0,
+          firstContentfulPaint: performance.getEntriesByType('paint')[1]?.startTime || 0
+        };
+        
+        console.log('Performance Metrics:', metrics);
+        return metrics;
+      }
+    });
+  }
+};
+
+// 23. Accessibility improvements
+export const improveAccessibility = () => {
+  // Skip to main content link
+  const skipLink = document.createElement('a');
+  skipLink.href = '#main-content';
+  skipLink.textContent = 'Skip to main content';
+  skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50';
+  document.body.insertBefore(skipLink, document.body.firstChild);
+
+  // Add ARIA labels to interactive elements
+  document.querySelectorAll('button, a, input, textarea').forEach(el => {
+    if (!el.getAttribute('aria-label') && !el.getAttribute('aria-labelledby')) {
+      const text = el.textContent || el.placeholder || el.alt || 'Interactive element';
+      el.setAttribute('aria-label', text.trim());
+    }
+  });
+
+  // Add focus management
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      document.body.classList.add('keyboard-navigation');
+    }
+  });
+
+  document.addEventListener('mousedown', () => {
+    document.body.classList.remove('keyboard-navigation');
+  });
+};
+
+// 24. Validation functions
+export const validatePortfolioData = (data) => {
   const errors = [];
   
   if (!data.personalInfo.name) errors.push('El nombre es requerido');
   if (!data.personalInfo.title) errors.push('El título profesional es requerido');
   if (data.projects.length === 0) errors.push('Añade al menos un proyecto');
   
+  // Validate URLs
+  Object.entries(data.socialLinks).forEach(([platform, url]) => {
+    if (url && !isValidUrl(url)) {
+      errors.push(`URL de ${platform} no es válida`);
+    }
+  });
+
   return {
     isValid: errors.length === 0,
     errors
   };
 };
 
-// 6. Generador de SEO meta tags
-const generateSEOMeta = (portfolioData) => {
-  return {
-    title: `${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}`,
-    description: portfolioData.personalInfo.bio || `Portfolio profesional de ${portfolioData.personalInfo.name}`,
-    keywords: portfolioData.skills.join(', '),
-    ogImage: portfolioData.personalInfo.avatar || 'default-og-image.jpg',
-    canonical: `https://tu-dominio.com`
-  };
-};
-
-// 7. Analytics y tracking (opcional)
-const trackEvent = (eventName, properties = {}) => {
-  // Google Analytics 4
-  if (window.gtag) {
-    window.gtag('event', eventName, properties);
-  }
-  
-  // También podrías usar otras herramientas como Mixpanel, Hotjar, etc.
-  console.log(`Event tracked: ${eventName}`, properties);
-};
-
-// 8. Función para generar el HTML completo del portafolio
-const generatePortfolioHTML = (portfolioData) => {
-  const theme = portfolioData.theme.style || 'minimal';
-  const layout = portfolioData.theme.layout || 'grid';
-  
-  return `
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      <!-- Header/Hero Section -->
-      <div class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50"></div>
-        <div class="relative container mx-auto px-6 py-20">
-          <div class="max-w-4xl mx-auto text-center">
-            <div class="mb-8">
-              ${portfolioData.personalInfo.avatar ? 
-                `<img src="${portfolioData.personalInfo.avatar}" alt="Avatar" class="w-32 h-32 rounded-full mx-auto shadow-lg object-cover">` :
-                `<div class="w-32 h-32 rounded-full mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
-                   <span class="text-white text-4xl font-bold">${portfolioData.personalInfo.name.charAt(0) || 'P'}</span>
-                 </div>`
-              }
-            </div>
-            
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-              ${portfolioData.personalInfo.name || 'Tu Nombre'}
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-gray-600 mb-6 font-light">
-              ${portfolioData.personalInfo.title || 'Tu Título Profesional'}
-            </p>
-            
-            <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8 leading-relaxed">
-              ${portfolioData.personalInfo.bio || 'Tu biografía aparecerá aquí.'}
-            </p>
-
-            <div class="flex justify-center gap-4 mb-8">
-              ${Object.entries(portfolioData.socialLinks)
-                .filter(([key, value]) => value)
-                .map(([key, value]) => {
-                  const icons = {
-                    github: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
-                    linkedin: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
-                    instagram: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.618 5.367 11.986 11.988 11.986s11.987-5.368 11.987-11.986C24.014 5.367 18.635.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.295C3.853 14.285 3.136 12.018 3.136 9.724c0-2.295.717-4.562 2.017-6.27C6.028 2.649 7.179 2.16 8.476 2.16c1.297 0 2.448.489 3.323 1.294 1.301 1.708 2.017 3.975 2.017 6.27 0 2.294-.716 4.561-2.017 6.269-.875.805-2.026 1.295-3.323 1.295zm7.138 0c-1.297 0-2.448-.49-3.323-1.295-1.301-1.708-2.017-3.975-2.017-6.269 0-2.295.716-4.562 2.017-6.27.875-.805 2.026-1.294 3.323-1.294 1.297 0 2.448.489 3.323 1.294 1.301 1.708 2.017 3.975 2.017 6.27 0 2.294-.716 4.561-2.017 6.269-.875.805-2.026 1.295-3.323 1.295z"/></svg>',
-                    twitter: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>'
-                  };
-                  
-                  return `<a href="${value}" class="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110">
-                    ${icons[key] || ''}
-                  </a>`;
-                }).join('')
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Skills Section -->
-      ${portfolioData.skills.length > 0 ? `
-        <div class="py-20 bg-gray-50">
-          <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
-              Habilidades & Tecnologías
-            </h2>
-            <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-              ${portfolioData.skills.map(skill => 
-                `<span class="px-4 py-2 bg-white rounded-full shadow-sm text-gray-700 font-medium hover:shadow-md transition-all duration-300 transform hover:scale-105" style="border-left: 4px solid ${portfolioData.theme.primaryColor}">
-                  ${skill}
-                </span>`
-              ).join('')}
-            </div>
-          </div>
-        </div>
-      ` : ''}
-
-      <!-- Projects Section -->
-      <div class="py-20">
-        <div class="container mx-auto px-6">
-          <h2 class="text-3xl font-bold text-center text-gray-900 mb-16">
-            Proyectos Destacados
-          </h2>
-          
-          ${portfolioData.projects.length === 0 ? `
-            <div class="text-center py-12">
-              <p class="text-gray-500 text-lg">No hay proyectos disponibles</p>
-            </div>
-          ` : `
-            <div class="grid gap-8 ${layout === 'bento' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}">
-              ${portfolioData.projects.map((project, index) => `
-                <div class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:scale-105 ${layout === 'bento' && index % 3 === 0 ? 'md:col-span-2 md:row-span-1' : ''} ${project.featured ? 'ring-2 ring-indigo-500 ring-opacity-50' : ''}">
-                  <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-600/20"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <div class="text-center text-gray-600">
-                        <div class="w-12 h-12 mx-auto mb-2 opacity-50">🎨</div>
-                        <p class="text-sm">Vista previa del proyecto</p>
-                      </div>
-                    </div>
-                    ${project.featured ? `
-                      <div class="absolute top-4 right-4">
-                        <div class="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                          ❤️ Destacado
-                        </div>
-                      </div>
-                    ` : ''}
-                  </div>
-                  
-                  <div class="p-6">
-                    <div class="flex items-center justify-between mb-2">
-                      <h3 class="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                        ${project.title}
-                      </h3>
-                      <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
-                        ${project.category}
-                      </span>
-                    </div>
-                    
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                      ${project.description}
-                    </p>
-                    
-                    ${project.tags.length > 0 ? `
-                      <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.tags.slice(0, 3).map(tag => 
-                          `<span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full font-medium">
-                            ${tag}
-                          </span>`
-                        ).join('')}
-                        ${project.tags.length > 3 ? `
-                          <span class="text-xs text-gray-500 px-2 py-1">
-                            +${project.tags.length - 3} más
-                          </span>
-                        ` : ''}
-                      </div>
-                    ` : ''}
-                    
-                    <div class="flex gap-3">
-                      ${project.liveUrl ? `
-                        <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" 
-                           class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 font-medium text-center flex items-center justify-center gap-2 text-sm">
-                          🔗 Ver Demo
-                        </a>
-                      ` : ''}
-                      ${project.githubUrl ? `
-                        <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer"
-                           class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center">
-                          GitHub
-                        </a>
-                      ` : ''}
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          `}
-        </div>
-      </div>
-
-      <!-- Contact Section -->
-      <div class="py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-6 text-center">
-          <h2 class="text-3xl font-bold mb-6">¿Listo para trabajar juntos?</h2>
-          <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Estoy siempre abierto a nuevas oportunidades y colaboraciones interesantes.
-          </p>
-          
-          <div class="flex flex-wrap justify-center gap-6">
-            ${portfolioData.personalInfo.email ? `
-              <a href="mailto:${portfolioData.personalInfo.email}" 
-                 class="bg-white text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
-                📧 Enviar Email
-              </a>
-            ` : ''}
-            ${portfolioData.personalInfo.phone ? `
-              <a href="tel:${portfolioData.personalInfo.phone}"
-                 class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-colors flex items-center gap-2">
-                📞 Llamar
-              </a>
-            ` : ''}
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-};
-
-// 9. Función para auto-guardar datos
-const useAutoSave = (portfolioData) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      saveToLocalStorage(portfolioData);
-    }, 2000); // Auto-guardar cada 2 segundos de inactividad
-
-    return () => clearTimeout(timer);
-  }, [portfolioData]);
-};
-
-// 10. Función para generar slug/URL amigable
-const generateSlug = (text) => {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // Remover caracteres especiales
-    .replace(/[\s_-]+/g, '-') // Reemplazar espacios con guiones
-    .replace(/^-+|-+$/g, ''); // Remover guiones del inicio y final
-};
-
-// 11. Función para validar URLs
-const isValidUrl = (url) => {
+export const isValidUrl = (url) => {
   try {
     new URL(url);
     return true;
@@ -324,29 +461,121 @@ const isValidUrl = (url) => {
   }
 };
 
-// 12. Función para comprimir imágenes
-const compressImage = (file, maxWidth = 800, quality = 0.8) => {
-  return new Promise((resolve) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    
-    img.onload = () => {
-      const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
-      canvas.width = img.width * ratio;
-      canvas.height = img.height * ratio;
-      
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob(resolve, 'image/jpeg', quality);
-    };
-    
-    img.src = URL.createObjectURL(file);
-  });
+// 25. Export functions
+export const exportToPDF = async (portfolioData) => {
+  // This would require a PDF library like jsPDF or Puppeteer
+  console.log('PDF export would be implemented here with a PDF library');
+  alert('Función de exportación a PDF estará disponible en la próxima versión');
 };
 
-// 13. Función para generar colores de tema automáticamente
-const generateThemeColors = (baseColor) => {
-  // Convertir hex a HSL y generar variaciones
+export const deployToNetlify = async (htmlContent) => {
+  // This would integrate with Netlify's API
+  console.log('Netlify deployment would be implemented here');
+  alert('Integración con Netlify estará disponible en la próxima versión');
+};
+
+// 26. Custom hook for portfolio state
+export const usePortfolioState = () => {
+  const [portfolioData, setPortfolioData] = useState(() => {
+    const saved = loadFromLocalStorage();
+    return saved || {
+      personalInfo: {
+        name: '',
+        title: '',
+        bio: '',
+        location: '',
+        email: '',
+        phone: '',
+        website: '',
+        avatar: null,
+        videoBackground: ''
+      },
+      projects: [],
+      skills: [],
+      experience: [],
+      testimonials: [],
+      socialLinks: {
+        github: '',
+        linkedin: '',
+        instagram: '',
+        twitter: ''
+      },
+      theme: {
+        primaryColor: '#6366f1',
+        secondaryColor: '#8b5cf6',
+        style: 'minimal',
+        layout: 'grid',
+        darkMode: false
+      },
+      analytics: {
+        enabled: false,
+        trackingId: ''
+      },
+      pwa: {
+        enabled: true,
+        name: 'Mi Portafolio',
+        shortName: 'Portfolio'
+      }
+    };
+  });
+
+  // Auto-save functionality
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveToLocalStorage(portfolioData);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [portfolioData]);
+
+  return [portfolioData, setPortfolioData];
+};
+
+// 27. Notification system
+export const showNotification = (message, type = 'success', duration = 3000) => {
+  const notification = document.createElement('div');
+  notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-0 ${
+    type === 'success' ? 'bg-green-500 text-white' : 
+    type === 'error' ? 'bg-red-500 text-white' : 
+    type === 'warning' ? 'bg-yellow-500 text-black' :
+    'bg-blue-500 text-white'
+  }`;
+  
+  notification.innerHTML = `
+    <div class="flex items-center gap-2">
+      <span>${getNotificationIcon(type)}</span>
+      <span>${message}</span>
+      <button onclick="this.parentElement.parentElement.remove()" class="ml-2 text-lg font-bold opacity-70 hover:opacity-100">×</button>
+    </div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Auto-remove notification
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    }
+  }, duration);
+};
+
+const getNotificationIcon = (type) => {
+  const icons = {
+    success: '✅',
+    error: '❌',
+    warning: '⚠️',
+    info: 'ℹ️'
+  };
+  return icons[type] || icons.info;
+};
+
+// 28. Theme color generator
+export const generateThemeColors = (baseColor) => {
   const hexToHsl = (hex) => {
     const r = parseInt(hex.slice(1, 3), 16) / 255;
     const g = parseInt(hex.slice(3, 5), 16) / 255;
@@ -383,81 +612,782 @@ const generateThemeColors = (baseColor) => {
   };
 };
 
-// 14. Hook personalizado para gestión de estado del portafolio
-const usePortfolioState = () => {
-  const [portfolioData, setPortfolioData] = useState(() => {
-    const saved = loadFromLocalStorage();
-    return saved || {
-      personalInfo: {
-        name: '',
-        title: '',
-        bio: '',
-        location: '',
-        email: '',
-        phone: '',
-        website: '',
-        avatar: null
-      },
-      projects: [],
-      skills: [],
-      socialLinks: {
-        github: '',
-        linkedin: '',
-        instagram: '',
-        twitter: ''
-      },
-      theme: {
-        primaryColor: '#6366f1',
-        secondaryColor: '#8b5cf6',
-        style: 'minimal',
-        layout: 'grid'
+// 29. URL slug generator
+export const generateSlug = (text) => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
+// 30. File utilities
+export const downloadFile = (content, filename, mimeType = 'text/plain') => {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+// 31. AI Content Generators (Mock implementations)
+export const generateAIBio = async (title, name, style = 'professional') => {
+  // Mock AI-generated content based on user inputs
+  const templates = {
+    professional: `${name} es un/a ${title} con amplia experiencia en el desarrollo de soluciones innovadoras. Especializado/a en crear experiencias digitales que combinan funcionalidad excepcional con diseño intuitivo, ha trabajado con diversas empresas para transformar ideas en productos exitosos.`,
+    
+    creative: `Passionate ${title} con un enfoque creativo único. ${name} transforma conceptos complejos en experiencias visuales impactantes, combinando arte y tecnología para crear proyectos que inspiran y conectan con las audiencias.`,
+    
+    casual: `Hola! Soy ${name}, un/a ${title} que disfruta crear cosas increíbles. Me encanta trabajar en proyectos desafiantes y colaborar con equipos talentosos para dar vida a ideas innovadoras.`
+  };
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  return templates[style] || templates.professional;
+};
+
+export const generateAISkills = async (title, industry = 'tech') => {
+  const skillSets = {
+    'desarrollador': ['JavaScript', 'React', 'Node.js', 'TypeScript', 'Python', 'Git', 'API REST', 'MongoDB'],
+    'diseñador': ['Figma', 'Adobe Creative Suite', 'Sketch', 'Prototyping', 'UI/UX', 'Design Systems', 'Webflow'],
+    'marketing': ['Google Analytics', 'SEO', 'Content Marketing', 'Social Media', 'Email Marketing', 'A/B Testing'],
+    'general': ['Comunicación', 'Trabajo en equipo', 'Resolución de problemas', 'Gestión de proyectos', 'Liderazgo']
+  };
+
+  const titleLower = title.toLowerCase();
+  let skills = [];
+
+  if (titleLower.includes('desarrollador') || titleLower.includes('developer')) {
+    skills = skillSets.desarrollador;
+  } else if (titleLower.includes('diseñador') || titleLower.includes('designer')) {
+    skills = skillSets.diseñador;
+  } else if (titleLower.includes('marketing')) {
+    skills = skillSets.marketing;
+  } else {
+    skills = skillSets.general;
+  }
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 800));
+  
+  return skills;
+};
+
+// 32. Analytics integration
+export const initializeAnalytics = (trackingId) => {
+  if (!trackingId || typeof window === 'undefined') return;
+
+  // Google Analytics 4
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', trackingId);
+};
+
+export const trackEvent = (eventName, parameters = {}) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
+  }
+  console.log(`Event tracked: ${eventName}`, parameters);
+};
+
+// 33. Device detection
+export const detectDevice = () => {
+  const width = window.innerWidth;
+  if (width < 768) return 'mobile';
+  if (width < 1024) return 'tablet';
+  return 'desktop';
+};
+
+export const isTouchDevice = () => {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
+
+// 34. Animation utilities
+export const animateOnScroll = () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in');
+        observer.unobserve(entry.target);
       }
-    };
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
   });
 
-  // Auto-guardar cuando cambien los datos
-  useAutoSave(portfolioData);
-
-  return [portfolioData, setPortfolioData];
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
 };
 
-// 15. Función para notificaciones/toast
-const showNotification = (message, type = 'success') => {
-  const notification = document.createElement('div');
-  notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
-    type === 'success' ? 'bg-green-500 text-white' : 
-    type === 'error' ? 'bg-red-500 text-white' : 
-    'bg-blue-500 text-white'
-  }`;
-  notification.textContent = message;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.style.opacity = '0';
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 300);
-  }, 3000);
+// 35. Form validation
+export const validateForm = (formData, rules) => {
+  const errors = {};
+
+  Object.keys(rules).forEach(field => {
+    const value = formData[field];
+    const fieldRules = rules[field];
+
+    if (fieldRules.required && (!value || value.trim() === '')) {
+      errors[field] = `${fieldRules.label || field} es requerido`;
+    }
+
+    if (value && fieldRules.minLength && value.length < fieldRules.minLength) {
+      errors[field] = `${fieldRules.label || field} debe tener al menos ${fieldRules.minLength} caracteres`;
+    }
+
+    if (value && fieldRules.email && !isValidEmail(value)) {
+      errors[field] = `${fieldRules.label || field} debe ser un email válido`;
+    }
+
+    if (value && fieldRules.url && !isValidUrl(value)) {
+      errors[field] = `${fieldRules.label || field} debe ser una URL válida`;
+    }
+  });
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors
+  };
 };
 
-// Exportar todas las funciones
-export {
+export const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// 36. Dark mode utilities
+export const initializeDarkMode = () => {
+  const savedMode = localStorage.getItem('darkMode');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  const isDark = savedMode ? savedMode === 'true' : prefersDark;
+  
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+  }
+  
+  return isDark;
+};
+
+export const toggleDarkMode = () => {
+  const isDark = document.documentElement.classList.contains('dark');
+  
+  if (isDark) {
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('darkMode', 'false');
+  } else {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('darkMode', 'true');
+  }
+  
+  return !isDark;
+};
+
+// 37. Debounce utility
+export const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+// 38. Copy to clipboard
+export const copyToClipboard = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    showNotification('Copiado al portapapeles', 'success');
+    return true;
+  } catch (err) {
+    console.error('Error copying to clipboard:', err);
+    showNotification('Error al copiar', 'error');
+    return false;
+  }
+};
+
+// 39. Share API
+export const sharePortfolio = async (portfolioData) => {
+  const shareData = {
+    title: `${portfolioData.personalInfo.name} - Portfolio`,
+    text: portfolioData.personalInfo.bio || `Mira el portfolio de ${portfolioData.personalInfo.name}`,
+    url: window.location.href
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      trackEvent('portfolio_shared', { method: 'native' });
+    } else {
+      // Fallback to copy URL
+      await copyToClipboard(window.location.href);
+      trackEvent('portfolio_shared', { method: 'copy' });
+    }
+  } catch (err) {
+    console.error('Error sharing:', err);
+  }
+};
+
+// 40. Browser compatibility check
+export const checkBrowserCompatibility = () => {
+  const features = {
+    css_grid: CSS.supports('display', 'grid'),
+    css_flexbox: CSS.supports('display', 'flex'),
+    intersection_observer: 'IntersectionObserver' in window,
+    service_worker: 'serviceWorker' in navigator,
+    local_storage: 'localStorage' in window
+  };
+
+  const unsupported = Object.entries(features)
+    .filter(([feature, supported]) => !supported)
+    .map(([feature]) => feature);
+
+  if (unsupported.length > 0) {
+    console.warn('Unsupported browser features:', unsupported);
+    showNotification(
+      'Tu navegador no soporta todas las funcionalidades. Considera actualizarlo.',
+      'warning',
+      5000
+    );
+  }
+
+  return features;
+};
+
+// Export all functions
+export default {
   exportToHTML,
+  generatePWAManifest,
+  generateDynamicIcon,
+  generateAnalyticsCode,
+  generateEnhancedCSS,
+  generateEnhancedJavaScript,
+  generateServiceWorkerCode,
+  generateAnalyticsTrackingCode,
+  generatePortfolioHTML,
+  generateHeroSection,
+  generateSocialLinks,
+  generateContactInfo,
+  generateSkillsSection,
+  generateExperienceSection,
+  generateProjectsSection,
+  generateTestimonialsSection,
+  generateContactSection,
   saveToLocalStorage,
   loadFromLocalStorage,
+  fetchGithubRepos,
   handleImageUpload,
-  generateRealAIBio,
-  validatePortfolioData,
   generateSEOMeta,
-  trackEvent,
-  generatePortfolioHTML,
-  useAutoSave,
-  generateSlug,
+  trackPerformance,
+  improveAccessibility,
+  validatePortfolioData,
   isValidUrl,
-  compressImage,
-  generateThemeColors,
+  isValidEmail,
+  exportToPDF,
+  deployToNetlify,
   usePortfolioState,
-  showNotification
+  showNotification,
+  generateThemeColors,
+  generateSlug,
+  downloadFile,
+  generateAIBio,
+  generateAISkills,
+  initializeAnalytics,
+  trackEvent,
+  detectDevice,
+  isTouchDevice,
+  animateOnScroll,
+  validateForm,
+  initializeDarkMode,
+  toggleDarkMode,
+  debounce,
+  copyToClipboard,
+  sharePortfolio,
+  checkBrowserCompatibility
+};import { useState, useEffect } from 'react';
+
+// 1. Enhanced HTML Export Function
+export const exportToHTML = (portfolioData) => {
+  const isDarkTheme = portfolioData.theme.style === 'dark' || portfolioData.theme.darkMode;
+  
+  const htmlTemplate = `<!DOCTYPE html>
+<html lang="es" class="${isDarkTheme ? 'dark' : ''}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}</title>
+    <meta name="description" content="${portfolioData.personalInfo.bio || `Portfolio profesional de ${portfolioData.personalInfo.name}`}">
+    <meta name="keywords" content="${portfolioData.skills.join(', ')}">
+    <meta name="author" content="${portfolioData.personalInfo.name}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}">
+    <meta property="og:description" content="${portfolioData.personalInfo.bio || `Portfolio profesional de ${portfolioData.personalInfo.name}`}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="${portfolioData.personalInfo.name} - ${portfolioData.personalInfo.title}">
+    <meta property="twitter:description" content="${portfolioData.personalInfo.bio || `Portfolio profesional de ${portfolioData.personalInfo.name}`}">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '${portfolioData.theme.primaryColor}',
+                        secondary: '${portfolioData.theme.secondaryColor}'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- PWA Manifest -->
+    ${portfolioData.pwa.enabled ? generatePWAManifest(portfolioData) : ''}
+    
+    <!-- Google Analytics -->
+    ${portfolioData.analytics.enabled && portfolioData.analytics.trackingId ? generateAnalyticsCode(portfolioData.analytics.trackingId) : ''}
+    
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 0.6s ease-out; }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Enhanced styles */
+        ${generateEnhancedCSS(portfolioData)}
+    </style>
+</head>
+<body class="${isDarkTheme ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}">
+    ${generatePortfolioHTML(portfolioData)}
+    ${generateEnhancedJavaScript(portfolioData)}
+</body>
+</html>`;
+
+  const blob = new Blob([htmlTemplate], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${portfolioData.personalInfo.name || 'portfolio'}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
 };
+
+// 2. PWA Manifest Generator
+export const generatePWAManifest = (portfolioData) => {
+  const manifest = {
+    name: portfolioData.pwa.name,
+    short_name: portfolioData.pwa.shortName,
+    start_url: "/",
+    display: "standalone",
+    background_color: "#ffffff",
+    theme_color: portfolioData.theme.primaryColor,
+    icons: [
+      {
+        src: generateDynamicIcon(portfolioData.personalInfo.name.charAt(0) || 'P', portfolioData.theme.primaryColor),
+        sizes: "192x192",
+        type: "image/svg+xml"
+      },
+      {
+        src: generateDynamicIcon(portfolioData.personalInfo.name.charAt(0) || 'P', portfolioData.theme.primaryColor),
+        sizes: "512x512",
+        type: "image/svg+xml"
+      }
+    ]
+  };
+
+  return `<link rel="manifest" href="data:application/json;base64,${btoa(JSON.stringify(manifest))}">`;
+};
+
+// 3. Dynamic Icon Generator
+export const generateDynamicIcon = (letter, color) => {
+  const svg = `
+    <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="192" height="192" rx="24" fill="${color}"/>
+      <text x="96" y="120" text-anchor="middle" fill="white" font-size="80" font-family="system-ui, sans-serif" font-weight="bold">${letter}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
+};
+
+// 4. Analytics Code Generator
+export const generateAnalyticsCode = (trackingId) => {
+  return `
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${trackingId}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${trackingId}');
+    </script>
+  `;
+};
+
+// 5. Enhanced CSS Generator
+export const generateEnhancedCSS = (portfolioData) => {
+  const isDarkTheme = portfolioData.theme.style === 'dark' || portfolioData.theme.darkMode;
+  
+  return `
+    /* Dark mode styles */
+    .dark body {
+        background-color: #111827;
+        color: #f9fafb;
+    }
+
+    /* Loading animation for images */
+    img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    img.loaded {
+        opacity: 1;
+    }
+
+    /* Keyboard navigation focus styles */
+    .keyboard-navigation *:focus {
+        outline: 2px solid ${portfolioData.theme.primaryColor};
+        outline-offset: 2px;
+    }
+
+    /* Smooth transitions for all interactive elements */
+    a, button {
+        transition: all 0.3s ease;
+    }
+
+    /* Enhanced hover effects */
+    .group:hover {
+        transform: translateY(-4px);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: ${isDarkTheme ? '#374151' : '#f1f5f9'};
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: ${portfolioData.theme.primaryColor};
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: ${portfolioData.theme.secondaryColor};
+    }
+
+    /* Print styles */
+    @media print {
+        .fixed, #darkModeToggle {
+            display: none !important;
+        }
+        
+        body {
+            background: white !important;
+            color: black !important;
+        }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+        body {
+            filter: contrast(1.2);
+        }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+  `;
+};
+
+// 6. Enhanced JavaScript Generator
+export const generateEnhancedJavaScript = (portfolioData) => {
+  const isDarkTheme = portfolioData.theme.style === 'dark' || portfolioData.theme.darkMode;
+  
+  return `
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+
+        let isDark = ${isDarkTheme ? 'true' : 'localStorage.getItem("darkMode") === "true"'};
+        
+        function updateDarkMode() {
+            if (isDark) {
+                html.classList.add('dark');
+                if (sunIcon) sunIcon.classList.remove('hidden');
+                if (moonIcon) moonIcon.classList.add('hidden');
+            } else {
+                html.classList.remove('dark');
+                if (sunIcon) sunIcon.classList.add('hidden');
+                if (moonIcon) moonIcon.classList.remove('hidden');
+            }
+            localStorage.setItem('darkMode', isDark.toString());
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                isDark = !isDark;
+                updateDarkMode();
+            });
+        }
+
+        // Initialize dark mode
+        updateDarkMode();
+
+        // PWA Service Worker Registration
+        ${portfolioData.pwa.enabled ? generateServiceWorkerCode() : ''}
+
+        // Analytics tracking
+        ${portfolioData.analytics.enabled && portfolioData.analytics.trackingId ? generateAnalyticsTrackingCode() : ''}
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+                console.log('Page Load Time:', perfData.loadEventEnd - perfData.fetchStart, 'ms');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('section, .container > div').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Keyboard navigation improvements
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        console.log('Portfolio loaded successfully! ✨');
+        console.log('Features enabled:', {
+            darkMode: true,
+            pwa: ${portfolioData.pwa.enabled},
+            analytics: ${portfolioData.analytics.enabled},
+            responsive: true,
+            accessibility: true
+        });
+    </script>
+  `;
+};
+
+// 7. Service Worker Code Generator
+export const generateServiceWorkerCode = () => {
+  return `
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('data:text/javascript;base64,${btoa(`
+                const CACHE_NAME = 'portfolio-v1';
+                const urlsToCache = [
+                    '/',
+                    'https://cdn.tailwindcss.com'
+                ];
+
+                self.addEventListener('install', event => {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.addAll(urlsToCache))
+                    );
+                });
+
+                self.addEventListener('fetch', event => {
+                    event.respondWith(
+                        caches.match(event.request)
+                            .then(response => {
+                                if (response) {
+                                    return response;
+                                }
+                                return fetch(event.request);
+                            })
+                    );
+                });
+            `)}')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+        });
+    }
+  `;
+};
+
+// 8. Analytics Tracking Code Generator
+export const generateAnalyticsTrackingCode = () => {
+  return `
+    function trackEvent(eventName, parameters = {}) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, parameters);
+        }
+    }
+
+    // Track portfolio interactions
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', () => {
+            trackEvent('contact_email_click');
+        });
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', () => {
+            trackEvent('contact_phone_click');
+        });
+    });
+
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.addEventListener('click', () => {
+            trackEvent('external_link_click', {
+                url: link.href
+            });
+        });
+    });
+  `;
+};
+
+// 9. Enhanced Portfolio HTML Generator
+export const generatePortfolioHTML = (portfolioData) => {
+  const isDarkTheme = portfolioData.theme.style === 'dark' || portfolioData.theme.darkMode;
+  const isBento = portfolioData.theme.layout === 'bento';
+  
+  return `
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+        <svg id="sunIcon" class="w-5 h-5 ${isDarkTheme ? 'hidden' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg id="moonIcon" class="w-5 h-5 ${isDarkTheme ? '' : 'hidden'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+    </button>
+
+    <!-- Main Portfolio Content -->
+    <div class="min-h-screen ${isDarkTheme ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'}">
+        ${generateHeroSection(portfolioData, isDarkTheme)}
+        ${generateSkillsSection(portfolioData, isDarkTheme)}
+        ${generateExperienceSection(portfolioData, isDarkTheme)}
+        ${generateProjectsSection(portfolioData, isDarkTheme, isBento)}
+        ${generateTestimonialsSection(portfolioData, isDarkTheme)}
+        ${generateContactSection(portfolioData)}
+    </div>
+  `;
+};
+
+// 10. Hero Section Generator
+export const generateHeroSection = (portfolioData, isDarkTheme) => {
+  return `
+    <div class="relative overflow-hidden">
+        ${portfolioData.personalInfo.videoBackground ? `
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover opacity-20">
+            <source src="${portfolioData.personalInfo.videoBackground}" type="video/mp4">
+        </video>` : ''}
+        
+        <div class="absolute inset-0 ${isDarkTheme ? 'bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90' : 'bg-gradient-to-br from-indigo-50/90 via-white/90 to-purple-50/90'}"></div>
+        
+        <div class="relative container mx-auto px-6 py-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8">
+                    ${portfolioData.personalInfo.avatar ? 
+                      `<img src="${portfolioData.personalInfo.avatar}" alt="Avatar" class="w-32 h-32 rounded-full mx-auto shadow-lg object-cover">` :
+                      `<div class="w-32 h-32 rounded-full mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                         <span class="text-white text-4xl font-bold">${portfolioData.personalInfo.name.charAt(0) || 'P'}</span>
+                       </div>`
+                    }
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl font-bold ${isDarkTheme ? 'text-white' : 'text-gray-900'} mb-4 animate-fade-in">
+                    ${portfolioData.personalInfo.name || 'Tu Nombre'}
+                </h1>
+                
+                <p class="text-xl md:text-2xl ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'} mb-6 font-light">
+                    ${portfolioData.personalInfo.title || 'Tu Título Profesional'}
+                </p>
+                
+                <p class="text-lg ${isDarkTheme ? 'text-gray-400' : 'text-gray-700'} max-w-2xl mx-auto mb-8 leading-relaxed">
+                    ${portfolioData.personalInfo.bio || 'Tu biografía aparecerá aquí.'}
+                </p>
+
+                ${generateSocialLinks(portfolioData.socialLinks, isDarkTheme)}
+                ${generateContactInfo(portfolioData.personalInfo, isDarkTheme)}
+            </div>
+        </div>
+    </div>
+  `;
+};
+
+// 11. Social Links Generator
+export const generateSocialLinks = (socialLinks, isDarkTheme) => {
+  const socialIcons = {
+    github: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.
