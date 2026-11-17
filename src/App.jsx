@@ -517,12 +517,15 @@ const TestimonialModal = ({ testimonial, onSave, onClose }) => {
 
 // Funciones auxiliares y utilidades
 
-// Función para generar contenido con IA (simulada)
-const generateAIContent = (type, userInput, setIsGenerating) => {
-  setIsGenerating(true);
-  setTimeout(() => {
-    setIsGenerating(false);
-  }, 1500);
+// Genera una biografía a partir de una plantilla con los datos del usuario (sin IA ni conexión)
+const generateBioFromTemplate = ({ personalInfo, skills }) => {
+  const title = personalInfo.title || 'profesional creativo';
+  const location = personalInfo.location ? ` con base en ${personalInfo.location}` : '';
+  const topSkills = skills.slice(0, 3);
+  const skillsText = topSkills.length
+    ? ` Trabajo sobre todo con ${topSkills.length > 1 ? topSkills.slice(0, -1).join(', ') + ' y ' + topSkills[topSkills.length - 1] : topSkills[0]}.`
+    : '';
+  return `${title.charAt(0).toUpperCase() + title.slice(1)}${location}, apasionado por convertir ideas en proyectos cuidados y útiles.${skillsText} Me gusta aprender en cada proyecto y trabajar con atención al detalle.`;
 };
 
 // Función para obtener repositorios de GitHub
@@ -667,7 +670,8 @@ const generatePortfolioHTML = (portfolioData, themes) => {
       ]
     };
     
-    return btoa(JSON.stringify(manifest));
+    // btoa solo acepta Latin-1: se codifica a UTF-8 para admitir tildes y ñ
+    return btoa(unescape(encodeURIComponent(JSON.stringify(manifest))));
   };
 
   // Template HTML principal
@@ -1114,26 +1118,6 @@ const generatePortfolioHTML = (portfolioData, themes) => {
       
       'updateDarkMode();' +
       
-      (portfolioData.pwa.enabled ? 
-        'if ("serviceWorker" in navigator) {' +
-        'window.addEventListener("load", () => {' +
-        'navigator.serviceWorker.register("data:text/javascript;base64," + btoa(`' +
-        'const CACHE_NAME = "portfolio-v1";' +
-        'const urlsToCache = ["/", "https://cdn.tailwindcss.com"];' +
-        'self.addEventListener("install", event => {' +
-        'event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));' +
-        '});' +
-        'self.addEventListener("fetch", event => {' +
-        'event.respondWith(caches.match(event.request).then(response => {' +
-        'if (response) return response;' +
-        'return fetch(event.request);' +
-        '}));' +
-        '});' +
-        '`))' +
-        '.then(registration => console.log("SW registered: ", registration))' +
-        '.catch(registrationError => console.log("SW registration failed: ", registrationError));' +
-        '});' +
-        '}' : '') +
       
       (portfolioData.analytics.enabled && portfolioData.analytics.trackingId ? 
         'function trackEvent(eventName, parameters = {}) {' +
@@ -1630,7 +1614,6 @@ const PortfolioGenerator = () => {
   const [currentProject, setCurrentProject] = useState(null);
   const [currentExperience, setCurrentExperience] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [githubRepos, setGithubRepos] = useState([]);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [previewDevice, setPreviewDevice] = useState('desktop');
@@ -1907,22 +1890,16 @@ const PortfolioGenerator = () => {
               <div className="flex gap-2 mb-2">
                 <button
                   onClick={() => {
-                    generateAIContent('bio', portfolioData.personalInfo.title, setIsGenerating);
-                    setTimeout(() => {
-                      setPortfolioData(prev => ({
-                        ...prev,
-                        personalInfo: { 
-                          ...prev.personalInfo, 
-                          bio: `Passionate ${prev.personalInfo.title || 'creative professional'} with a keen eye for detail and innovation. I transform ideas into compelling digital experiences that resonate with users and drive results.`
-                        }
-                      }));
-                    }, 1500);
+                    setPortfolioData(prev => ({
+                      ...prev,
+                      personalInfo: { ...prev.personalInfo, bio: generateBioFromTemplate(prev) }
+                    }));
                   }}
-                  disabled={isGenerating}
+                  title="Rellena la biografía con una plantilla a partir de tu título, ubicación y habilidades"
                   className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors disabled:opacity-50 flex items-center gap-1"
                 >
                   <Sparkles className="w-3 h-3" />
-                  {isGenerating ? 'Generando...' : 'Generar con IA'}
+                  Generar borrador
                 </button>
               </div>
               <textarea
