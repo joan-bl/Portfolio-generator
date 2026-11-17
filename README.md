@@ -40,8 +40,6 @@ src/
 ├── App.jsx      # Toda la aplicación: editor, vista previa y generador del HTML exportado
 ├── index.js     # Punto de entrada
 └── index.css    # Tailwind y animaciones
-docs/
-└── notas-ideas.txt   # Ideas y notas originales del proyecto
 ```
 
 ## Tecnologías
